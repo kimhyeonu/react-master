@@ -1,19 +1,28 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 
 import Profile from './Profile';
 
 const Profiles = () => {
+  const activeStyle = {
+    background: 'black',
+    color: 'white',
+  };
+
   return (
     <div>
       <h3>사용자 목록:</h3>
 
       <ul>
         <li>
-          <Link to="/profiles/velopert">velopert</Link>
+          <NavLink activeStyle={activeStyle} to="/profiles/velopert">
+            velopert
+          </NavLink>
         </li>
         <li>
-          <Link to="/profiles/polaris">polaris</Link>
+          <NavLink activeStyle={activeStyle} to="/profiles/polaris">
+            polaris
+          </NavLink>
         </li>
       </ul>
 
