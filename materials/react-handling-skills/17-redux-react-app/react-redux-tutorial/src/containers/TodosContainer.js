@@ -1,38 +1,31 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Todos from '../components/Todos';
 import { changeInput, insert, toggle, remove } from '../modules/todos';
+import useActions from '../libs/useActions';
 
-const TodosContainer = ({
-  inputText,
-  todos,
-  changeInput,
-  insert,
-  toggle,
-  remove,
-}) => {
+const TodosContainer = () => {
+  const { inputText, todos } = useSelector(({ todos }) => ({
+    inputText: todos.inputText,
+    todos: todos.todos,
+  }));
+
+  const [onChangeInput, onInsert, onToggle, onRemove] = useActions(
+    [changeInput, insert, toggle, remove],
+    []
+  );
+
   return (
     <Todos
       inputText={inputText}
       todos={todos}
-      onChangeInput={changeInput}
-      onInsert={insert}
-      onToggle={toggle}
-      onRemove={remove}
+      onChangeInput={onChangeInput}
+      onInsert={onInsert}
+      onToggle={onToggle}
+      onRemove={onRemove}
     />
   );
 };
 
-export default connect(
-  ({ todos }) => ({
-    inputText: todos.inputText,
-    todos: todos.todos,
-  }),
-  {
-    changeInput,
-    insert,
-    toggle,
-    remove,
-  }
-)(TodosContainer);
+export default React.memo(TodosContainer);
