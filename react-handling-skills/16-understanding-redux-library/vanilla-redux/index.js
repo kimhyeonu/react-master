@@ -1,14 +1,17 @@
 import { createStore } from 'redux';
 
+// DOM 엘리먼트
 const toggleDisplayEl = document.querySelector('.toggle-display');
 const counterEl = document.querySelector('h1');
 const decreaseButtonEl = document.querySelector('#decrease-button');
 const increaseButtonEl = document.querySelector('#increase-button');
 
+// 액션
 const SWITCH_TOGGLE = 'SWITCH_TOGGLE';
 const DECREASE = 'DECREASE';
 const INCREASE = 'INCREASE';
 
+// 액션 생성 함수
 const switchToggle = () => ({
   type: SWITCH_TOGGLE,
 });
@@ -21,6 +24,7 @@ const increase = (difference) => ({
   difference,
 });
 
+// 초기 상태
 // 읽기 전용 상태
 const initialState = {
   active: false,
@@ -75,6 +79,7 @@ const render = () => {
 render();
 store.subscribe(render);
 
+// 액션 디스패치
 toggleDisplayEl.onclick = () => {
   store.dispatch(switchToggle());
 };
