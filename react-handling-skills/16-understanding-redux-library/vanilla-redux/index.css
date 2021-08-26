@@ -1,0 +1,11 @@
+.toggle-display {
+  border: 2px solid black;
+  border-radius: 32px;
+  box-sizing: border-box;
+  width: 64px;
+  height: 64px;
+}
+
+.toggle-display.active {
+  background: darkslateblue;
+}
