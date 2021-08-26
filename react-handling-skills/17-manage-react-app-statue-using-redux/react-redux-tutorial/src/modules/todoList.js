@@ -32,6 +32,7 @@ const REMOVE = 'todoList/REMOVE';
 //   type: REMOVE,
 //   id,
 // });
+
 // [2]
 export const changeInput = createAction(CHANGE_INPUT, (inputText) => inputText);
 export const add = createAction(ADD, (inputText) => ({
@@ -85,6 +86,7 @@ const initialState = {
 //       return state;
 //   }
 // }
+
 // [2]
 // const todoList = handleActions(
 //   {
@@ -114,6 +116,7 @@ const initialState = {
 //   },
 //   initialState
 // );
+
 // [3]
 const todoList = handleActions(
   {

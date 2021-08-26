@@ -12,6 +12,7 @@ const INCREASE = 'counter/INCREASE';
 // export const increase = () => ({
 //   type: INCREASE,
 // });
+
 // [2]
 export const decrease = createAction(DECREASE);
 export const increase = createAction(INCREASE);
@@ -39,6 +40,7 @@ const initialState = {
 //       return state;
 //   }
 // }
+
 // [2]
 const counter = handleActions(
   {

@@ -1,59 +1,34 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Counter from '../components/Counter';
-import { decrease, increase } from '../modules/couter';
+import { decrease, increase } from '../modules/counter';
 
-const CounterContainer = ({ number, decrease, increase }) => {
+// [1]
+// const CounterContainer = () => {
+//   const number = useSelector((state) => state.counter.number);
+//   const dispatch = useDispatch();
+
+//   return (
+//     <Counter
+//       number={number}
+//       onDecrease={() => dispatch(decrease())}
+//       onIncrease={() => dispatch(increase())}
+//     />
+//   );
+// };
+
+// [2]
+const CounterContainer = () => {
+  const number = useSelector((state) => state.counter.number);
+  const dispatch = useDispatch();
+
+  const onDecrease = useCallback(() => dispatch(decrease()), [dispatch]);
+  const onIncrease = useCallback(() => dispatch(increase()), [dispatch]);
+
   return (
-    <Counter number={number} onDecrease={decrease} onIncrease={increase} />
+    <Counter number={number} onDecrease={onDecrease} onIncrease={onIncrease} />
   );
 };
 
-// [1]
-// const mapStateToProps = (state) => ({
-//   number: state.counter.number,
-// });
-// const mapDispatchToProps = (dispatch) => ({
-//   increase: () => dispatch(increase()),
-//   decrease: () => dispatch(decrease()),
-// });
-// export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
-
-// [2]
-// export default connect(
-//   (state) => ({
-//     number: state.counter.number,
-//   }),
-//   (dispatch) => ({
-//     increase: () => dispatch(increase()),
-//     decrease: () => dispatch(decrease()),
-//   })
-// )(CounterContainer);
-
-// [3]
-// import { bindActionCreators } from 'redux';
-// export default connect(
-//   (state) => ({
-//     number: state.counter.number,
-//   }),
-//   (dispatch) =>
-//     bindActionCreators(
-//       {
-//         increase,
-//         decrease,
-//       },
-//       dispatch
-//     )
-// )(CounterContainer);
-
-// [4]
-export default connect(
-  (state) => ({
-    number: state.counter.number,
-  }),
-  {
-    increase,
-    decrease,
-  }
-)(CounterContainer);
+export default CounterContainer;
