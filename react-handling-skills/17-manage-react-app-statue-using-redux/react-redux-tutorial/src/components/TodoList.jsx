@@ -10,23 +10,30 @@ const TodoList = ({
   onToggle,
   onRemove,
 }) => {
+  const onChange = (e) => onChangeInput(e.target.value);
+
   const onSubmit = (e) => {
     e.preventDefault();
+    onAdd(inputText);
+    onChangeInput('');
   };
 
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input />
+        <input value={inputText} onChange={onChange} />
         <button type="submit">추가</button>
       </form>
 
       <div>
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
+        {items.map((item) => (
+          <TodoItem
+            item={item}
+            key={item.id}
+            onToggle={onToggle}
+            onRemove={onRemove}
+          />
+        ))}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 // 상수
-const lastItemId = 0;
+let lastItemId = 0;
 
 // 액션 타입
 const CHANGE_INPUT = 'todoList/CHANGE_INPUT';
@@ -46,6 +46,7 @@ function todoList(state = initialState, action) {
       };
 
     case ADD:
+      lastItemId++;
       return {
         ...state,
         items: state.items.concat(action.item),
@@ -60,6 +61,7 @@ function todoList(state = initialState, action) {
       };
 
     case REMOVE:
+      lastItemId--;
       return {
         ...state,
         items: state.items.filter((item) => item.id !== action.id),
