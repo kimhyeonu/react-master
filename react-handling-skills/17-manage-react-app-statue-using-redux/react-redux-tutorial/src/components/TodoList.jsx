@@ -5,7 +5,7 @@ import TodoItem from './TodoItem.jsx';
 const TodoList = ({
   inputText,
   items,
-  onChange,
+  onChangeInput,
   onAdd,
   onToggle,
   onRemove,
