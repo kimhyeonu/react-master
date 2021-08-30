@@ -1,5 +1,6 @@
-const Router = require('koa-router');
-const controller = require('./posts.controller');
+import Router from 'koa-router';
+
+import * as controller from './posts.controller';
 
 const posts = new Router();
 
@@ -15,8 +16,8 @@ posts.get('/', controller.list);
 posts.post('/', controller.create);
 
 posts.get('/:id', controller.read);
-posts.delete('/:id', controller.delete);
+posts.delete('/:id', controller.remove);
 posts.put('/:id', controller.replace);
 posts.patch('/:id', controller.update);
 
-module.exports = posts;
+export default posts;

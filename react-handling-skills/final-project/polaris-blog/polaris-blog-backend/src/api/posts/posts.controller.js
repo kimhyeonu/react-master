@@ -10,13 +10,13 @@ const posts = [
 
 // 포스트 목록 조회
 // GET /api/posts
-exports.list = (context) => {
+export const list = (context) => {
   context.body = posts;
 };
 
 // 특정 포스트 조회
 // GET /api/posts/:id
-exports.read = (context) => {
+export const read = (context) => {
   const { id } = context.params;
 
   const post = posts.find((post) => post.id.toString() === id);
@@ -33,7 +33,7 @@ exports.read = (context) => {
 };
 
 // 특정 포스트 삭제
-exports.delete = (context) => {
+export const remove = (context) => {
   const { id } = context.params;
 
   const index = posts.findIndex((post) => post.id.toString() === id);
@@ -52,7 +52,7 @@ exports.delete = (context) => {
 
 // 특정 포스트 전체 수정
 // PUT /api/posts/:id {title, body}
-exports.replace = (context) => {
+export const replace = (context) => {
   const { id } = context.params;
 
   const index = posts.findIndex((post) => post.id.toString() === id);
@@ -74,7 +74,7 @@ exports.replace = (context) => {
 
 // 특정 포스트 일부 수정
 // PATCH /api/posts/:id {title, body}
-exports.update = (context) => {
+export const update = (context) => {
   const { id } = context.params;
 
   const index = posts.findIndex((post) => post.id.toString() === id);
@@ -96,7 +96,7 @@ exports.update = (context) => {
 
 // 포스트 생성
 // POST /api/posts {title, body}
-exports.create = (context) => {
+export const create = (context) => {
   const { title, body } = context.request.body;
 
   postId += 1;
