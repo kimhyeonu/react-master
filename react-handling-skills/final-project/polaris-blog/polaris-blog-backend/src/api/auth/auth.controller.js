@@ -31,12 +31,51 @@ export const signUp = async (context) => {
     await user.save();
 
     context.body = user.serialize();
+
+    const token = user.generateToekn();
+    context.cookies.set('access_token', token, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+    });
   } catch (e) {
     context.throw(500, e);
   }
 };
 
-export const signIn = async (context) => {};
+export const signIn = async (context) => {
+  const { username, password } = context.request.body;
+
+  if (!username || !password) {
+    context.status = 401;
+    return;
+  }
+
+  try {
+    const user = await User.findByUsername(username);
+
+    if (!user) {
+      context.status = 401;
+      return;
+    }
+
+    const valid = await user.checkPassword(password);
+
+    if (!valid) {
+      context.status = 401;
+      return;
+    }
+
+    context.body = user.serialize();
+
+    const token = user.generateToken();
+    context.cookies.set('access_token', token, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+    });
+  } catch (e) {
+    context.throw(500, e);
+  }
+};
 
 export const check = async (context) => {};
 
