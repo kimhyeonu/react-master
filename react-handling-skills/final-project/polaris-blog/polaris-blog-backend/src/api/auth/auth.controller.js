@@ -77,6 +77,18 @@ export const signIn = async (context) => {
   }
 };
 
-export const check = async (context) => {};
+export const check = async (context) => {
+  const { user } = context.state;
 
-export const signOut = async (context) => {};
+  if (!user) {
+    context.status = 401;
+    return;
+  }
+
+  context.body = user;
+};
+
+export const signOut = async (context) => {
+  context.cookies.set('access_token');
+  context.status = 204;
+};
