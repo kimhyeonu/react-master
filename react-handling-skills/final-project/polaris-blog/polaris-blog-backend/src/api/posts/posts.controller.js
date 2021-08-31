@@ -17,9 +17,29 @@ export const checkObjectId = (context, next) => {
 };
 
 export const readAllPost = async (context) => {
+  const page = parseInt(context.query.page || '1', 10);
+
+  if (page < 1) {
+    context.status = 400;
+    return;
+  }
+
   try {
-    const posts = await Post.find().exec();
-    context.body = posts;
+    const posts = await Post.find()
+      .sort({ _id: -1 })
+      .limit(10)
+      .skip((page - 1) * 10)
+      .lean()
+      .exec();
+
+    const postCount = await Post.countDocuments().exec();
+    context.set('Last-Page', Math.ceil(postCount / 10));
+
+    context.body = posts.map((post) => ({
+      ...post,
+      body:
+        post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`,
+    }));
   } catch (e) {
     context.throw(500, e);
   }
