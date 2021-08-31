@@ -1,113 +1,74 @@
-let postId = 1;
+import Post from '../../models/post';
 
-const posts = [
-  {
-    id: 1,
-    title: '제목',
-    body: '내용',
-  },
-];
-
-// 포스트 목록 조회
-// GET /api/posts
-export const list = (context) => {
-  context.body = posts;
+export const readAllPost = async (context) => {
+  try {
+    const posts = await Post.find().exec();
+    context.body = posts;
+  } catch (e) {
+    context.throw(500, e);
+  }
 };
 
-// 특정 포스트 조회
-// GET /api/posts/:id
-export const read = (context) => {
+export const readPost = async (context) => {
   const { id } = context.params;
 
-  const post = posts.find((post) => post.id.toString() === id);
+  try {
+    const post = await Post.findById(id).exec();
 
-  if (!post) {
-    context.status = 404;
-    context.body = {
-      message: '포스트가 존재하지 않습니다.',
-    };
-    return;
+    if (!post) {
+      context.status = 404;
+      return;
+    }
+
+    context.body = post;
+  } catch (e) {
+    context.throw(500, e);
   }
-
-  context.body = post;
 };
 
-// 특정 포스트 삭제
-export const remove = (context) => {
-  const { id } = context.params;
+export const createPost = async (context) => {
+  const { title, body, tags } = context.request.body;
 
-  const index = posts.findIndex((post) => post.id.toString() === id);
-
-  if (index === -1) {
-    context.status = 404;
-    context.body = {
-      message: '포스트가 존재하지 않습니다.',
-    };
-    return;
-  }
-
-  posts.splice(index, 1);
-  context.status = 204;
-};
-
-// 특정 포스트 전체 수정
-// PUT /api/posts/:id {title, body}
-export const replace = (context) => {
-  const { id } = context.params;
-
-  const index = posts.findIndex((post) => post.id.toString() === id);
-
-  if (index === -1) {
-    context.status = 404;
-    context.body = {
-      message: '포스트가 존재하지 않습니다.',
-    };
-    return;
-  }
-
-  posts[index] = {
-    id,
-    ...context.request.body,
-  };
-  context.body = posts[index];
-};
-
-// 특정 포스트 일부 수정
-// PATCH /api/posts/:id {title, body}
-export const update = (context) => {
-  const { id } = context.params;
-
-  const index = posts.findIndex((post) => post.id.toString() === id);
-
-  if (index === -1) {
-    context.status = 404;
-    context.body = {
-      message: '포스트가 존재하지 않습니다.',
-    };
-    return;
-  }
-
-  posts[index] = {
-    ...posts[index],
-    ...context.request.body,
-  };
-  context.body = posts[index];
-};
-
-// 포스트 생성
-// POST /api/posts {title, body}
-export const create = (context) => {
-  const { title, body } = context.request.body;
-
-  postId += 1;
-
-  const post = {
-    id: postId,
+  const post = new Post({
     title,
     body,
-  };
+    tags,
+  });
 
-  posts.push(post);
+  try {
+    await post.save();
+    context.body = post;
+  } catch (e) {
+    context.throw(500, e);
+  }
+};
 
-  context.body = post;
+export const deletePost = async (context) => {
+  const { id } = context.params;
+
+  try {
+    await Post.findByIdAndRemove(id).exec();
+    context.status = 204;
+  } catch (e) {
+    context.throw(500, e);
+  }
+};
+
+export const updatePost = async (context) => {
+  const { id } = context.params;
+
+  try {
+    const post = await Post.findByIdAndUpdate(id, context.request.body, {
+      new: true,
+    }).exec();
+
+    if (!post) {
+      context.status = 404;
+      return;
+    }
+
+    context.body = post;
+  } catch (e) {
+    context.throw(500, e);
+  }
 };

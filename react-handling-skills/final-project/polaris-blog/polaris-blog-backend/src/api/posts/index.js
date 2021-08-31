@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 
-import * as controller from './posts.controller';
+import * as controller from './posts.controller.js';
 
 const posts = new Router();
 
@@ -12,12 +12,11 @@ const posts = new Router();
 //   };
 // };
 
-posts.get('/', controller.list);
-posts.post('/', controller.create);
+posts.get('/', controller.readAllPost);
+posts.post('/', controller.createPost);
 
-posts.get('/:id', controller.read);
-posts.delete('/:id', controller.remove);
-posts.put('/:id', controller.replace);
-posts.patch('/:id', controller.update);
+posts.get('/:id', controller.readPost);
+posts.delete('/:id', controller.deletePost);
+posts.patch('/:id', controller.updatePost);
 
 export default posts;
