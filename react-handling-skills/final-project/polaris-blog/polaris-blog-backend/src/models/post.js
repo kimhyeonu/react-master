@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { mongo } from 'mongoose';
 
 const { Schema } = mongoose;
 
@@ -9,6 +9,10 @@ const PostSchema = new Schema({
   publishedDate: {
     type: Date,
     default: Date.now,
+  },
+  author: {
+    _id: mongoose.Types.ObjectId,
+    username: String,
   },
 });
 

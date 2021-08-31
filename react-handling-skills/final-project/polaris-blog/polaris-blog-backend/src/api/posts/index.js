@@ -1,22 +1,17 @@
 import Router from 'koa-router';
 
 import * as controller from './posts.controller.js';
+import checkSignedIn from '../../lib/checkSignedIn.js';
 
 const posts = new Router();
+posts.get('/', controller.inquireAll);
+posts.post('/', checkSignedIn, controller.write);
 
-// const printInfo = (context) => {
-//   context.body = {
-//     method: context.method,
-//     path: context.path,
-//     params: context.params,
-//   };
-// };
+const post = new Router();
+post.get('/', controller.inquire);
+post.delete('/', checkSignedIn, controller.checkOwnPost, controller.remove);
+post.put('/', checkSignedIn, controller.checkOwnPost, controller.modify);
 
-posts.get('/', controller.readAllPost);
-posts.post('/', controller.createPost);
-
-posts.get('/:id', controller.checkObjectId, controller.readPost);
-posts.delete('/:id', controller.checkObjectId, controller.deletePost);
-posts.patch('/:id', controller.checkObjectId, controller.updatePost);
+posts.use('/:id', controller.getPostById, post.routes());
 
 export default posts;

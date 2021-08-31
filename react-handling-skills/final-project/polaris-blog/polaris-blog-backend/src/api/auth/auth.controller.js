@@ -32,7 +32,7 @@ export const signUp = async (context) => {
 
     context.body = user.serialize();
 
-    const token = user.generateToekn();
+    const token = user.generateToken();
     context.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
