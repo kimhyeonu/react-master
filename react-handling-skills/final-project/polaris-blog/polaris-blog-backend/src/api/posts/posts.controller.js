@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Joi from 'joi';
 
 import Post from '../../models/post';
 
@@ -42,20 +43,20 @@ export const readPost = async (context) => {
 };
 
 export const createPost = async (context) => {
-  const { title, body, tags } = context.request.body;
-
-  const post = new Post({
-    title,
-    body,
-    tags,
+  const schema = Joi.object().keys({
+    title: Joi.string().required(),
+    body: Joi.string().required(),
+    tags: Joi.array().items(Joi.string()).required(),
   });
 
-  try {
-    await post.save();
-    context.body = post;
-  } catch (e) {
-    context.throw(500, e);
+  const result = schema.validate(context.request.body);
+
+  if (result.error) {
+    context.status = 400;
   }
+
+  context.body = result;
+  return;
 };
 
 export const deletePost = async (context) => {
@@ -71,6 +72,19 @@ export const deletePost = async (context) => {
 
 export const updatePost = async (context) => {
   const { id } = context.params;
+
+  const schema = Joi.object().keys({
+    title: Joi.string(),
+    body: Joi.string(),
+    tags: Joi.array().items(Joi.string()),
+  });
+
+  const result = schema.validate(context.request.body);
+
+  if (result.error) {
+    context.status = 400;
+    context.body = result.error;
+  }
 
   try {
     const post = await Post.findByIdAndUpdate(id, context.request.body, {
