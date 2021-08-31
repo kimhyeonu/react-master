@@ -15,8 +15,8 @@ const posts = new Router();
 posts.get('/', controller.readAllPost);
 posts.post('/', controller.createPost);
 
-posts.get('/:id', controller.readPost);
-posts.delete('/:id', controller.deletePost);
-posts.patch('/:id', controller.updatePost);
+posts.get('/:id', controller.checkObjectId, controller.readPost);
+posts.delete('/:id', controller.checkObjectId, controller.deletePost);
+posts.patch('/:id', controller.checkObjectId, controller.updatePost);
 
 export default posts;

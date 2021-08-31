@@ -1,4 +1,19 @@
+import mongoose from 'mongoose';
+
 import Post from '../../models/post';
+
+const { ObjectId } = mongoose.Types;
+
+export const checkObjectId = (context, next) => {
+  const { id } = context.params;
+
+  if (!ObjectId.isValid(id)) {
+    context.status = 400;
+    return;
+  }
+
+  return next();
+};
 
 export const readAllPost = async (context) => {
   try {
