@@ -1,7 +1,14 @@
 import React from 'react';
 
+import AuthLayout from '../components/layouts/AuthLayout';
+import AuthForm from '../components/AuthForm';
+
 const SignUpPage = () => {
-  return <div>가입 페이지</div>;
+  return (
+    <AuthLayout>
+      <AuthForm type="signUp" />
+    </AuthLayout>
+  );
 };
 
 export default SignUpPage;
