@@ -1,12 +1,12 @@
 import React from 'react';
 
 import AuthLayout from '../components/layouts/AuthLayout';
-import AuthForm from '../components/AuthForm';
+import SignUpForm from '../containers/SignUpForm';
 
 const SignUpPage = () => {
   return (
     <AuthLayout>
-      <AuthForm type="signUp" />
+      <SignUpForm />
     </AuthLayout>
   );
 };

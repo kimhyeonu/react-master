@@ -1,12 +1,12 @@
 import React from 'react';
 
 import AuthLayout from '../components/layouts/AuthLayout';
-import AuthForm from '../components/AuthForm';
+import SignInForm from '../containers/SignInForm';
 
 const SignInPage = () => {
   return (
     <AuthLayout>
-      <AuthForm type="signIn" />
+      <SignInForm />
     </AuthLayout>
   );
 };

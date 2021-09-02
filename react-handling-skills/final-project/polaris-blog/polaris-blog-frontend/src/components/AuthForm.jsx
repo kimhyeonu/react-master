@@ -50,25 +50,29 @@ const formTitleMap = {
   signUp: '서비스 가입',
 };
 
-const AuthForm = ({ type }) => {
+const AuthForm = ({ type, form, onChange, onSubmit }) => {
   const formTitle = formTitleMap[type];
 
   return (
     <Block>
       <h3>{formTitle}</h3>
 
-      <form>
+      <form onSubmit={onSubmit}>
         <StyledInput
           type="text"
           autoComplete="username"
           name="username"
           placeholder="Username"
+          onChange={onChange}
+          value={form.username}
         />
         <StyledInput
           type="password"
           autoComplete="new-password"
           name="password"
           placeholder="Password"
+          onChange={onChange}
+          value={form.password}
         />
         {type === 'signUp' && (
           <StyledInput
@@ -76,6 +80,8 @@ const AuthForm = ({ type }) => {
             autoComplete="new-password"
             name="passwordConfirm"
             placeholder="Password Confirm"
+            onChange={onChange}
+            value={form.passwordConfirm}
           />
         )}
         <ButtonWithMarginTop fullWidth cyan>

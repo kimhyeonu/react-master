@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Block = styled.div``;
 
 const Header = () => {
-  return <Header></Header>;
+  return <Block></Block>;
 };
 
 export default Header;
