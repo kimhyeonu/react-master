@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+import todosStorages from './storages/todoStorages';
 import DateHead from './components/DateHead';
 import EmptyList from './components/EmptyList';
 import TodoList from './components/TodoList';
@@ -38,6 +39,14 @@ function App() {
     const nextTodos = todos.filter((todo) => todo.id !== id);
     setTodos(nextTodos);
   };
+
+  useEffect(() => {
+    todosStorages.get().then(setTodos).catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    todosStorages.set(todos).catch(console.error);
+  }, [todos]);
 
   return (
     <SafeAreaProvider>
