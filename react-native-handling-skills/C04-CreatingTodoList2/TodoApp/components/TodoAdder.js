@@ -10,10 +10,11 @@ import {
   Keyboard,
 } from 'react-native';
 
-function TodoAdder() {
+function TodoAdder({ onInsert }) {
   const [text, setText] = useState('');
 
-  const onPress = () => {
+  const _onPress = () => {
+    onInsert(text);
     setText('');
     Keyboard.dismiss();
   };
@@ -31,19 +32,19 @@ function TodoAdder() {
         style={styles.input}
         value={text}
         onChangeText={setText}
-        onSubmitEditing={onPress}
+        onSubmitEditing={_onPress}
         returnKeyType="done"
       />
 
       {Platform.select({
         ios: (
-          <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
+          <TouchableOpacity activeOpacity={0.5} onPress={_onPress}>
             {button}
           </TouchableOpacity>
         ),
         android: (
           <View style={styles.circleWrapper}>
-            <TouchableNativeFeedback onPress={onPress}>
+            <TouchableNativeFeedback onPress={_onPress}>
               {button}
             </TouchableNativeFeedback>
           </View>
