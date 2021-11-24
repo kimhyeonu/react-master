@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 
+import LogContext from '../contexts/LogContext';
+import FloatingWritingScreen from '../components/FloatingWritingButton';
+import FeedList from '../components/FeedList';
+
 function FeedsScreen() {
-  return <View style={styles.block}></View>;
+  const { logs } = useContext(LogContext);
+
+  return (
+    <View style={styles.block}>
+      <FeedList logs={logs} />
+
+      <FloatingWritingScreen />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  block: {},
+  block: {
+    flex: 1,
+  },
 });
 
 export default FeedsScreen;
