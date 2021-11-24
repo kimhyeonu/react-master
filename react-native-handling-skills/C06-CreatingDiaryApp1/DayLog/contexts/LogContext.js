@@ -4,7 +4,14 @@ import { v4 as uuidV4 } from 'uuid';
 const LogContext = createContext();
 
 export function LogContextProvider({ children }) {
-  const [logs, setLogs] = useState([]);
+  const [logs, setLogs] = useState(
+    Array.from({ length: 8 }).map((_, index) => ({
+      id: uuidV4(),
+      title: `Log ${index}`,
+      body: `Log ${index}`,
+      date: new Date().toISOString(),
+    }))
+  );
 
   const onCreate = ({ title, body, date }) => {
     const log = {

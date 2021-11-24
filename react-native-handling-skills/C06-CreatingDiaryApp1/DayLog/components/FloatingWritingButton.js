@@ -1,18 +1,52 @@
-import React from 'react';
-import { Platform, Pressable, View, StyleSheet } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { Platform, Pressable, View, StyleSheet, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-function FloatingWritingScreen() {
+function FloatingWritingScreen({ hidden }) {
   const navigation = useNavigation();
 
   const onPress = () => {
     navigation.navigate('Writing');
   };
 
+  const animation = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    // Animated.timing(animation, {
+    //   toValue: hidden ? 1 : 0,
+    //   useNativeDriver: true,
+    // }).start();
+
+    Animated.spring(animation, {
+      toValue: hidden ? 1 : 0,
+      useNativeDriver: true,
+      tension: 45,
+      friction: 5,
+    }).start();
+  }, [animation, hidden]);
+
   return (
-    <View style={styles.wrapper}>
+    <Animated.View
+      style={[
+        styles.wrapper,
+        {
+          transform: [
+            {
+              translateY: animation.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 88],
+              }),
+            },
+          ],
+          opacity: animation.interpolate({
+            inputRange: [0, 1],
+            outputRange: [1, 0],
+          }),
+        },
+      ]}
+    >
       <Pressable
         style={({ pressed }) => [
           styles.button,
@@ -25,7 +59,7 @@ function FloatingWritingScreen() {
       >
         <Icon name="add" size={24} style={styles.icon} />
       </Pressable>
-    </View>
+    </Animated.View>
   );
 }
 
