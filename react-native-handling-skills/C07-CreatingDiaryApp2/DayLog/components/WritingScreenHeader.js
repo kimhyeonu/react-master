@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
@@ -6,6 +6,30 @@ import { ko } from 'date-fns/locale';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import TransparentCircleButton from './TransparentCircleButton';
+
+const initialState = {
+  mode: 'date',
+  modalVisible: false,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'openModal':
+      return {
+        mode: action.mode,
+        modalVisible: true,
+      };
+
+    case 'closeModal':
+      return {
+        ...state,
+        modalVisible: false,
+      };
+
+    default:
+      throw new Error('Unhandled action type');
+  }
+}
 
 function WritingScreenHeader({
   onSave,
@@ -16,30 +40,22 @@ function WritingScreenHeader({
 }) {
   const navigation = useNavigation();
 
-  const [mode, setMode] = useState('date');
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const onPressDate = () => {
-    setMode('date');
-    setModalVisible(true);
+  const onGoBack = () => {
+    navigation.pop();
   };
 
-  const onPressTime = () => {
-    setMode('time');
-    setModalVisible(true);
-  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const openModal = (mode) => dispatch({ type: 'openModal', mode });
+  const closeModal = () => dispatch({ type: 'closeModal' });
 
   const onConfirm = (selectedDate) => {
-    setModalVisible(false);
+    closeModal();
     onChangeDate(selectedDate);
   };
 
   const onCancel = () => {
-    setModalVisible(false);
-  };
-
-  const onGoBack = () => {
-    navigation.pop();
+    closeModal();
   };
 
   return (
@@ -51,20 +67,20 @@ function WritingScreenHeader({
       />
 
       <View style={styles.center}>
-        <Pressable onPress={onPressDate}>
+        <Pressable onPress={() => openModal('date')}>
           <Text>{format(new Date(date), 'PPP', { locale: ko })}</Text>
         </Pressable>
 
         <View style={styles.separator} />
 
-        <Pressable onPress={onPressTime}>
+        <Pressable onPress={() => openModal('time')}>
           <Text>{format(new Date(date), 'p', { locale: ko })}</Text>
         </Pressable>
       </View>
 
       <DateTimePickerModal
-        isVisible={modalVisible}
-        mode={mode}
+        isVisible={state.modalVisible}
+        mode={state.mode}
         date={date}
         onConfirm={onConfirm}
         onCancel={onCancel}
