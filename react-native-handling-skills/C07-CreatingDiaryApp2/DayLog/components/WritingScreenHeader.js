@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import TransparentCircleButton from './TransparentCircleButton';
 
-function WritingScreenHeader({ onSave }) {
+function WritingScreenHeader({ onSave, onAskRemove, editable }) {
   const navigation = useNavigation();
 
   const onGoBack = () => {
@@ -20,11 +20,14 @@ function WritingScreenHeader({ onSave }) {
       />
 
       <View style={styles.buttons}>
-        <TransparentCircleButton
-          name="delete-forever"
-          color="#ef5350"
-          hasMarginRight
-        />
+        {editable && (
+          <TransparentCircleButton
+            name="delete-forever"
+            color="#ef5350"
+            hasMarginRight
+            onPress={onAskRemove}
+          />
+        )}
 
         <TransparentCircleButton
           name="check"
