@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>106279959410-fli4ucu9ojvop5h3u2nod4rm1v98l831.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.106279959410-fli4ucu9ojvop5h3u2nod4rm1v98l831</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>106279959410-iip972h2c2jb2djrvmt8v71imal90ibn.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDmYlwBBKzoaUzUXsBM4-lj6nvl0LyZlsY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>106279959410</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.polaris.PublicGallery</string>
+	<key>PROJECT_ID</key>
+	<string>public-gallery-polaris</string>
+	<key>STORAGE_BUCKET</key>
+	<string>public-gallery-polaris.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:106279959410:ios:d955af284b6526a9acbbeb</string>
+</dict>
+</plist>
