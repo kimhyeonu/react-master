@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { signIn, signUp } from '../lib/auth';
 import { readMember } from '../lib/members';
+import { useMemberContext } from '../contexts/MemberContext';
 import AuthForm from '../components/AuthForm';
 import AuthButtons from '../components/AuthButtons';
 
@@ -24,6 +25,7 @@ function AuthScreen({ navigation, route }) {
     passwordConfirm: '',
   });
   const [loading, setLoading] = useState();
+  const { setMember } = useMemberContext();
 
   const onChangeText = (name) => (value) => {
     setForm({
@@ -55,7 +57,7 @@ function AuthScreen({ navigation, route }) {
       if (!profile) {
         navigation.navigate('Welcome', { uid: user.uid });
       } else {
-        // TODO: ...
+        setMember(profile);
       }
     } catch (e) {
       const messages = {

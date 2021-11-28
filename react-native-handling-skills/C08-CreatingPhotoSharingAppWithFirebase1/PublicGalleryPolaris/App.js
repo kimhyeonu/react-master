@@ -1,13 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
+import { MemberContextProvider } from './contexts/MemberContext';
 import RootStack from './screens/RootStack';
 
 function App() {
   return (
-    <NavigationContainer>
-      <RootStack />
-    </NavigationContainer>
+    <MemberContextProvider>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </MemberContextProvider>
   );
 }
 

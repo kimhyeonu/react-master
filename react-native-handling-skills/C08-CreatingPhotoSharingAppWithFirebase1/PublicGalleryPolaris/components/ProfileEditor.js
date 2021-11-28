@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { signOut } from '../lib/auth';
 import { createMember } from '../lib/members';
+import { useMemberContext } from '../contexts/MemberContext';
 import BorderedInput from './BorderedInput';
 import CustomButton from './CustomButton';
 
@@ -13,13 +14,17 @@ function ProfileEditor() {
 
   const { uid } = params || {};
   const [nickname, setNickname] = useState('');
+  const { setMember } = useMemberContext();
 
   const onSubmit = () => {
-    createMember({
+    const member = {
       id: uid,
       displayName: nickname,
       photoURL: null,
-    });
+    };
+
+    createMember(member);
+    setMember(member);
   };
 
   const onCancel = () => {
