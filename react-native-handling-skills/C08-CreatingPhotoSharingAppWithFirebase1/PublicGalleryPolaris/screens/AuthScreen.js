@@ -11,10 +11,11 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { signIn, signUp } from '../lib/auth';
+import { readMember } from '../lib/members';
 import AuthForm from '../components/AuthForm';
 import AuthButtons from '../components/AuthButtons';
 
-function AuthScreen({ route }) {
+function AuthScreen({ navigation, route }) {
   const { isSignUp } = route.params ?? {};
 
   const [form, setForm] = useState({
@@ -50,7 +51,12 @@ function AuthScreen({ route }) {
 
     try {
       const { user } = isSignUp ? await signUp(info) : await signIn(info);
-      console.log(user);
+      const profile = await readMember(user.uid);
+      if (!profile) {
+        navigation.navigate('Welcome', { uid: user.uid });
+      } else {
+        // TODO: ...
+      }
     } catch (e) {
       const messages = {
         'auth/email-already-in-use': '이미 가입된 이메일입니다.',
