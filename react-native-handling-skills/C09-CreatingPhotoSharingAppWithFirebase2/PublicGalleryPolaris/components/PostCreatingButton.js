@@ -7,6 +7,7 @@ import {
   ActionSheetIOS,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 
@@ -22,6 +23,8 @@ const imagePickerOptions = {
 const TAB_BAR_HEIGHT = 49;
 
 function PostCreatingButton() {
+  const navigation = useNavigation();
+
   const insets = useSafeAreaInsets();
 
   const bottom = Platform.select({
@@ -36,7 +39,7 @@ function PostCreatingButton() {
       return;
     }
 
-    console.log(res);
+    navigation.push('PostCreating', { res });
   };
 
   const onLaunchCamera = () => {
