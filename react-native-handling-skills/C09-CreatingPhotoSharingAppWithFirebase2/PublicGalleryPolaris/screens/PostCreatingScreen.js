@@ -46,9 +46,9 @@ function PostCreatingScreen() {
     } else {
       await reference.putFile(asset.uri);
     }
-    const imageUrl = await reference.getDownloadURL();
+    const postImageUrl = await reference.getDownloadURL();
 
-    await createPost({ author: member, imageUrl, description });
+    await createPost({ author: member, postImageUrl, description });
   }, [res, member, description, navigation]);
 
   useEffect(() => {

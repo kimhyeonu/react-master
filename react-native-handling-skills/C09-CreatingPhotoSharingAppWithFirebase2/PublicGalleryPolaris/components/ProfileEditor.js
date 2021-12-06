@@ -56,8 +56,8 @@ function ProfileEditor() {
 
       const member = {
         id: uid,
-        displayName: nickname,
-        photoURL: profileImageUrl,
+        nickname,
+        profileImageUrl,
       };
 
       createMember(member);
