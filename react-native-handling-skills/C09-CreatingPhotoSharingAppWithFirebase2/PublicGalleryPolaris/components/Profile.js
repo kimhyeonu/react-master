@@ -8,6 +8,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import events from '../lib/events';
+import { useMemberContext } from '../contexts/MemberContext';
 import { readMember } from '../lib/members';
 import Avatar from './Avatar';
 import PostGridItem from './PostGridItem';
@@ -18,7 +20,7 @@ const renderItem = ({ item }) => <PostGridItem post={item} />;
 function Profile({ memberId }) {
   const [member, setMember] = useState(null);
   const { posts, showNoMorePost, refreshing, onLoadMorePosts, onRefresh } =
-    usePosts();
+    usePosts(memberId);
 
   useEffect(() => {
     readMember(memberId).then(setMember);

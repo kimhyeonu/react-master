@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import events from '../lib/events';
 import RightIconButton from '../components/RightIconButton';
 import { updatePost } from '../lib/posts';
 
@@ -19,6 +20,11 @@ function PostEditingScreen() {
   const onSubmit = useCallback(async () => {
     await updatePost({
       id: params.id,
+      description,
+    });
+
+    events.emit('updatePost', {
+      postId: params.id,
       description,
     });
 

@@ -13,6 +13,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import storage from '@react-native-firebase/storage';
 import { v4 } from 'uuid';
 
+import events from '../lib/events';
 import { useMemberContext } from '../contexts/MemberContext';
 import { createPost } from '../lib/posts';
 import RightIconButton from '../components/RightIconButton';
@@ -49,6 +50,8 @@ function PostCreatingScreen() {
     const postImageUrl = await reference.getDownloadURL();
 
     await createPost({ author: member, postImageUrl, description });
+
+    events.emit('refresh');
   }, [res, member, description, navigation]);
 
   useEffect(() => {
