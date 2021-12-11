@@ -1,28 +1,35 @@
 import React, { useMemo } from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
+
+import Avatar from './Avatar';
 
 function PostCard({ author, postImageUrl, description, createdAt, id }) {
+  const navigation = useNavigation();
+  const routeNames = useNavigationState((state) => state.routeNames);
+
   const date = useMemo(
     () => (createdAt ? new Date(createdAt._seconds * 1000) : new Date()),
     [createdAt]
   );
 
   const onOpenProfile = () => {
-    // TODO: ...
+    if (routeNames.find((routeName) => routeName === 'MyProfile')) {
+      navigation.navigate('MyProfile');
+    } else {
+      navigation.navigate('Profile', {
+        memberId: author.id,
+        nickname: author.nickname,
+      });
+    }
   };
 
   return (
     <View style={styles.block}>
       <View style={[styles.header, styles.paddingBlock]}>
         <Pressable style={styles.profile} onPress={onOpenProfile}>
-          <Image
-            source={
-              author.profileImageUrl
-                ? { uri: author.profileImageUrl }
-                : require('../assets/images/default-profile-image.png')
-            }
-            resizeMode="cover"
-            style={styles.profileImage}
+          <Avatar
+            source={author.profileImageUrl && { uri: author.profileImageUrl }}
           />
           <Text style={styles.nickname}>{author.nickname}</Text>
         </Pressable>
@@ -62,11 +69,6 @@ const styles = StyleSheet.create({
   profile: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  profileImage: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
   },
   nickname: {
     marginLeft: 8,

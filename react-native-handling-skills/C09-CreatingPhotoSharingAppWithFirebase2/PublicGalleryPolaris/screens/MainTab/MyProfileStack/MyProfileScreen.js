@@ -1,8 +1,21 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
+import Profile from '../../../components/Profile';
+import { useMemberContext } from '../../../contexts/MemberContext';
 
 function MyProfileScreen() {
-  return <View />;
+  const navigation = useNavigation();
+
+  const { member } = useMemberContext();
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: member.nickname,
+    });
+  }, [navigation, member]);
+
+  return <Profile memberId={member.id} />;
 }
 
 export default MyProfileScreen;

@@ -16,6 +16,7 @@ import { createMember } from '../lib/members';
 import { useMemberContext } from '../contexts/MemberContext';
 import BorderedInput from './BorderedInput';
 import CustomButton from './CustomButton';
+import Avatar from './Avatar';
 
 function ProfileEditor() {
   const navigation = useNavigation();
@@ -94,13 +95,9 @@ function ProfileEditor() {
   return (
     <View style={styles.block}>
       <Pressable onPress={onSelectImage}>
-        <Image
-          style={styles.photoCircle}
-          source={
-            profileImage
-              ? { uri: profileImage?.assets[0]?.uri }
-              : require('../assets/images/default-profile-image.png')
-          }
+        <Avatar
+          source={profileImage && { uri: profileImage?.assets[0]?.uri }}
+          size={128}
         />
       </Pressable>
 
@@ -132,12 +129,6 @@ const styles = StyleSheet.create({
     marginTop: 24,
     paddingHorizontal: 16,
     width: '100%',
-  },
-  photoCircle: {
-    width: 128,
-    height: 128,
-    borderRadius: 64,
-    backgroundColor: '#cdcdcd',
   },
   form: {
     marginTop: 16,
