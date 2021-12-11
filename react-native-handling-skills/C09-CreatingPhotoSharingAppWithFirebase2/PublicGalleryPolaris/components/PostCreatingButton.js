@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 
-import PictureUploadingModal from './PictureUploadingModal';
+import ActionSheetModal from './ActionSheetModal';
 
 const imagePickerOptions = {
   mediaType: 'photo',
@@ -86,11 +86,21 @@ function PostCreatingButton() {
         </Pressable>
       </View>
 
-      <PictureUploadingModal
+      <ActionSheetModal
         visible={modalVisible}
+        actions={[
+          {
+            icon: 'camera-alt',
+            text: '카메라로 촬영하기',
+            onPress: onLaunchCamera,
+          },
+          {
+            icon: 'photo',
+            text: '사진 선택하기',
+            onPress: onLaunchImageLibrary,
+          },
+        ]}
         onClose={() => setModalVisible(false)}
-        onLaunchCamera={onLaunchCamera}
-        onLaunchImageLibrary={onLaunchImageLibrary}
       />
     </>
   );

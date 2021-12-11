@@ -7,6 +7,7 @@ import { useMemberContext } from '../contexts/MemberContext';
 import AuthScreen from './AuthScreen';
 import WelcomeScreen from './WelcomeScreen';
 import PostCreatingScreen from './PostCreatingScreen';
+import PostEditingScreen from './PostEditingScreen';
 import MainTab from './MainTab/MainTab';
 
 const Stack = createNativeStackNavigator();
@@ -44,7 +45,15 @@ function RootStack() {
             name="PostCreating"
             component={PostCreatingScreen}
             options={{
-              title: '새 게시물',
+              title: '새 포스트',
+              headerBackTitle: '뒤로 가기',
+            }}
+          />
+          <Stack.Screen
+            name="PostEditing"
+            component={PostEditingScreen}
+            options={{
+              title: '포스트 수정',
               headerBackTitle: '뒤로 가기',
             }}
           />

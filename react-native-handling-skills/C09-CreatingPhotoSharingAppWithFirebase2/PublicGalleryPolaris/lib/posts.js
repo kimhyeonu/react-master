@@ -53,3 +53,11 @@ export async function readNewerPosts(id, authorId) {
     mode: 'newer',
   });
 }
+
+export async function deletePost(id) {
+  return postsCollection.doc(id).delete();
+}
+
+export async function updatePost({ id, description }) {
+  return postsCollection.doc(id).update({ description });
+}

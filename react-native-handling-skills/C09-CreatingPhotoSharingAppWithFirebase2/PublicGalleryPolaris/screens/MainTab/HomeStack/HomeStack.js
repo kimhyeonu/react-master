@@ -10,7 +10,11 @@ const Stack = createNativeStackNavigator();
 function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="PostFeed" component={PostFeedScreen} />
+      <Stack.Screen
+        name="PostFeed"
+        component={PostFeedScreen}
+        options={{ title: '포스트 피드' }}
+      />
       <Stack.Screen
         name="Post"
         component={PostScreen}
