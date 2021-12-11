@@ -8,6 +8,7 @@ import AuthScreen from './AuthScreen';
 import WelcomeScreen from './WelcomeScreen';
 import PostCreatingScreen from './PostCreatingScreen';
 import PostEditingScreen from './PostEditingScreen';
+import SettingScreen from './SettingScreen';
 import MainTab from './MainTab/MainTab';
 
 const Stack = createNativeStackNavigator();
@@ -54,6 +55,14 @@ function RootStack() {
             component={PostEditingScreen}
             options={{
               title: '포스트 수정',
+              headerBackTitle: '뒤로 가기',
+            }}
+          />
+          <Stack.Screen
+            name="Setting"
+            component={SettingScreen}
+            options={{
+              title: '설정',
               headerBackTitle: '뒤로 가기',
             }}
           />
