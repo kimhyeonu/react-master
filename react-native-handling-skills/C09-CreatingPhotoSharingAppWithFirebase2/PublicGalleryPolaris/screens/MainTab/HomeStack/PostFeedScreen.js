@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 import PostCard from '../../../components/PostCard';
 import usePosts from '../../../hooks/usePosts';
@@ -22,6 +23,13 @@ function PostFeedScreen() {
       id={item.id}
     />
   );
+
+  const completedLoadingPosts = posts !== null;
+  useEffect(() => {
+    if (completedLoadingPosts) {
+      SplashScreen.hide();
+    }
+  }, [completedLoadingPosts]);
 
   return (
     <FlatList

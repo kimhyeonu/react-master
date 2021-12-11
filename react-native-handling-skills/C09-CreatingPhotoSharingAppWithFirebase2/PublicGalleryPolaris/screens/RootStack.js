@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SplashScreen from 'react-native-splash-screen';
 
 import { subscribeAuth } from '../lib/auth';
 import { readMember } from '../lib/members';
@@ -21,6 +22,7 @@ function RootStack() {
       unsubscribe();
 
       if (!currentMember) {
+        SplashScreen.hide();
         return;
       }
 

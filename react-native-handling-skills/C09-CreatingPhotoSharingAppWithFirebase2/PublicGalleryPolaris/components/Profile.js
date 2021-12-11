@@ -8,8 +8,6 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import events from '../lib/events';
-import { useMemberContext } from '../contexts/MemberContext';
 import { readMember } from '../lib/members';
 import Avatar from './Avatar';
 import PostGridItem from './PostGridItem';
