@@ -1,13 +1,13 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-import Profile from './Profile';
+import RootStack from './screens/RootStack';
 
 function App() {
   return (
-    <Profile name="polaris">
-      <Text>Hello World</Text>
-    </Profile>
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
   );
 }
 
