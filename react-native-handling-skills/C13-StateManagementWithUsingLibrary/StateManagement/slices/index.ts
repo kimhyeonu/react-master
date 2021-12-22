@@ -2,10 +2,12 @@ import { combineReducers } from 'redux';
 
 import auth from './auth';
 import todos from './todos';
+import posts from './posts';
 
 const rootReducer = combineReducers({
   auth,
   todos,
+  posts,
 });
 
 // rootReducer 함수의 반환값 타입을 RootState type alias로 지정한다.

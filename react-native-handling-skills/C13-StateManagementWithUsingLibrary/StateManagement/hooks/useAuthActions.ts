@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
-import { User, signin, signout } from '../slices/auth';
+import { signin, signout } from '../slices/auth';
 
 export default function useAuthActions() {
   const dispatch = useDispatch();
