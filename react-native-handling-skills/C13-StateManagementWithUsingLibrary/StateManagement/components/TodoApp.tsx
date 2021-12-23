@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import useTodos from '../hooks/useTodos';
-import useTodosActions from '../hooks/useTodoActions';
+import useTodosActions from '../hooks/useTodosActions';
 
 function BlackButton({ onPress, title }: { onPress(): void; title: string }) {
   return (
