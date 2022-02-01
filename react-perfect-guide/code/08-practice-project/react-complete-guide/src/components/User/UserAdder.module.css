@@ -1,0 +1,26 @@
+.userAdder {
+  margin: 2rem auto;
+  padding: 1rem;
+  width: 90%;
+  max-width: 40rem;
+}
+
+.userAdder label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.userAdder input {
+  display: block;
+  margin-bottom: 0.5rem;
+  padding: 0.15rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  font: inherit;
+}
+
+.userAdder input:focus {
+  outline: none;
+  border-color: #4f005f;
+}
